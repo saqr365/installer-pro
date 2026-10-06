@@ -113,3 +113,16 @@ var lb=document.querySelector(".lab");["mouseenter","focusin"].forEach(function(
 document.addEventListener("visibilitychange",function(){document.hidden?stopSw():startSw()});
 IMG.forEach(function(n){["light","dark"].forEach(function(m){new Image().src="assets/img/"+n+"-"+m+".webp"})});
 buildApps();render();startAuto();startSw();
+
+/* Email link: on desktop (often no mail app set up) open Gmail compose; on phones keep mailto */
+(function(){
+  var a=document.querySelector('a[href^="mailto:"]');
+  if(!a)return;
+  var to=a.getAttribute('href').slice(7);
+  a.addEventListener('click',function(e){
+    if(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent))return;
+    e.preventDefault();
+    var w=window.open('https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(to),'_blank','noopener');
+    if(!w){try{navigator.clipboard.writeText(to)}catch(x){}}
+  });
+})();
