@@ -122,7 +122,8 @@ buildApps();render();startAuto();startSw();
   a.addEventListener('click',function(e){
     if(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent))return;
     e.preventDefault();
-    var w=window.open('https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(to),'_blank','noopener');
-    if(!w){try{navigator.clipboard.writeText(to)}catch(x){}}
+    var u='https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(to);
+    var w=window.open(u,'_blank');
+    if(w){w.opener=null}else{location.href=u}
   });
 })();
